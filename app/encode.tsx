@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -8,14 +8,9 @@ import {
   Alert,
 } from "react-native";
 import { Buffer } from "buffer";
-import QRCode from "react-native-qrcode-svg";
 import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from "expo-file-system";
 import { Camera } from "expo-camera";
 import * as Sharing from "expo-sharing";
-import jpeg from "jpeg-js";
-import * as ImageManipulator from "expo-image-manipulator";
-import base64js from "base64-js";
 import {
   TextInput,
   Button,
@@ -25,7 +20,6 @@ import {
   ActivityIndicator,
 } from "react-native-paper";
 import { Feather, Ionicons } from "@expo/vector-icons";
-import { compareImagesRedChannelOnly } from "@/utils";
 import { encodeMessageIntoImage } from "@/servers/api";
 
 if (typeof global.Buffer === "undefined") {
@@ -69,6 +63,7 @@ const App = () => {
   };
 
   const download = async () => {
+    console.log(image);
     // Prompt user to download or share the image
     if (await Sharing.isAvailableAsync()) {
       await Sharing.shareAsync(image, {
